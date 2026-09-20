@@ -1,0 +1,4 @@
+Similar al problema anterior, tienes que hacer un script en bash que reciba un número y devuelva el número siguiente.
+Sin embargo, en esa ocasión el número lo recibirá por la entrada estándar en vez de por argumentos.
+
+Puedes asumir que siempre va a haber un valor en la entrada, y además va a ser un número.

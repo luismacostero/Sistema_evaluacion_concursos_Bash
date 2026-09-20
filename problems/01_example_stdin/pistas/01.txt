@@ -1,0 +1,5 @@
+Recuerda que para leer un valor de la entrada estándar, puedes usar el comando read de la siguiente forma:
+
+    read var
+
+Y acceder al valor leído a través de la variable $var

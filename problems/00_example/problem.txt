@@ -1,0 +1,2 @@
+En este primer problema tienes que hacer un script en bash que reciba como argumento un número, y devolverá el número siguiente.
+Puedes asumir que siempre va a haber un argumento, y además va a ser un número.

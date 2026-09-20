@@ -1,0 +1,7 @@
+Recuerda que mediante $1 puedes acceder al primer argumento del programa (con $2 al segundo argumento, etc.).
+
+Para evaluar una expresión aritmética puedes usar la sintaxis de doble paréntesis:
+
+    $(($var1+3)) # Suma el valor de var1 más 3.
+
+Para mostrar el resultado por la salida estándar puedes usar el comando "echo".

@@ -1,0 +1,106 @@
+## Este fichero contiene los comandos que van a poder ejecutar los concursantes
+
+if [[ ! -z ${BASH_CONTEST_INITIALIZED+x} ]]; then
+	return
+else
+	export BASH_CONTEST_INITIALIZED=1
+fi
+
+
+function ayuda {
+    echo "Puedes lanzar cualquiera de los siguientes comandos: "
+    echo "comprueba_script <miScript.sh>: "
+    echo -e "\tvalida tu script con los casos de prueba públicos. El resultado de esta comprobación no afecta a la clasificación."
+    echo "envia_solucion <miScript.sh>: "
+    echo -e "\tEnvía tu script para evaluación. El resultado de esta llamada sí afecta a la clasificación."
+    echo "pista: "
+    echo -e "\tPide una pista al sistema. En caso de no existir más pistas, no se contabiliza."
+    echo "user_info: "
+    echo -e "\tModifica la información del usuario introducida al inicio del concurso."
+    
+}
+
+
+function comprueba_script {
+    if [[ ! $# -eq 1 ]]; then
+        echo "Te falta por indicar la ruta de tu script!"
+        return
+    fi  
+
+
+
+    local script=$1
+
+    sudo -u tester /contest/infra/user/comprueba_solucion_publica.py $script
+}
+
+
+function envia_solucion {
+    if [[ ! $# -eq 1 ]]; then
+        echo "Te falta por indicar la ruta de tu script!"
+        return
+    fi  
+
+
+    local script=$1
+
+    local sol=$(sudo -u tester /contest/infra/user/valida_solucion.py $script)
+
+    # Asumimos que sol tiene la return_code;new_folder
+
+    local r=$(echo "$sol" | cut -d\; -f 1)
+    local d=$(echo "$sol" | cut -d\; -f 2)
+
+    if [[ $r == "True" ]]; then
+	echo "Tu solución es correcta :) !! "
+	read -p "Pulsa una tecla para continuar al siguiente ejercicio. Se cambiará al nuevo directorio de trabajo de forma automática"
+
+	cd "$d"
+	less enunciado.txt
+    else
+	echo ":( Tu solución no es correcta"
+    fi
+}
+    
+
+
+function user_info {
+    echo ""
+    echo "¡Bienvenido!"
+    echo ""
+
+    echo "Antes de empezar, introduce tus datos:"
+    echo ""
+    
+    sudo -u tester /contest/infra/user/update_user_info.py
+
+    if [[ ! -f ~/.bash_contest ]]; then
+    	touch ~/.bash_contest
+	cd ~/problem_00/
+	cat enunciado.txt
+    fi
+}
+
+function pista {
+    sudo -u tester /contest/infra/user/request_clue.py
+}
+
+function get_current_problem {
+	echo $(ls -d ~/problem_* | tail -n 1 | cut -d: -f 1)
+}
+
+
+
+
+## MAIN 
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+     eval $(ssh-agent -s)
+     ssh-add ~/.ssh/clave-ssh
+fi
+
+if [[ ! -f ~/.bash_contest ]]; then
+   user_info
+fi	
+
+
+cd $(get_current_problem)
