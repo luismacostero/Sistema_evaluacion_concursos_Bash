@@ -1,4 +1,17 @@
-# V Edición del concurso de BASH (segundo semestre 2025/2026)
+# Sistema automático para la elaboración de concursos de programación BASH
+El sistema muestra a los ususarios distintos problemas y evalúa las soluciones 
+propuestas de forma automática.
+
+La interacción con los usuarios es a través del propio sistema operativo, creando
+y mostrando distintas carpetas y ficheros, e interaccionando con el evaluador a través
+de comandos de la terminal.
+
+
+Hay más detalles en la siguiente publicación:
+[https://doi.org/10.5281/zenodo.15544165](https://doi.org/10.5281/zenodo.15544165)
+
+
+## Algunas cosas útiles antes de empezar a ejecutar
 
 Comprueba la carpeta de /utils !!!
 
@@ -8,7 +21,7 @@ Ahí hay scripts para:
 - Comprobar todas las soluciones propuestas de un problema (test_solutions.sh <num>)
 
 
-# Cosas que comprobar antes de que inicie el concurso:
+## Cosas que comprobar antes de que inicie el concurso:
 - [ ] Hay un problema que juega con los permisos de los ficheros. Comprobar que
       la solución propuesta es correcta y ajustar los permisos de forma adecuada
 - [ ] De igual forma, hay un ejercicio que juega con la fecha de modificación
